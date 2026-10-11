@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "1.0.5",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
+  "permissions": ["storage", "tabs", "scripting", "declarativeNetRequest", "alarms"],
+  "optional_permissions": ["webRequest"],
+  "background": {
+    "scripts": ["scripts/js/trading.js", "scripts/background.js"]
+  },
+  "action": {
+    "default_popup": "home.html",
+    "default_icon": {
+      "16": "assets/images/icons/default/Purpura_Default_Logo_16.png",
+      "48": "assets/images/icons/default/Purpura_Default_Logo_48.png",
+      "128": "assets/images/icons/default/Purpura_Default_Logo_128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/images/icons/default/Purpura_Default_Logo_16.png",
+    "48": "assets/images/icons/default/Purpura_Default_Logo_48.png",
+    "128": "assets/images/icons/default/Purpura_Default_Logo_128.png"
+  },
+  "content_security_policy": {"extension_pages": "script-src 'self'; object-src 'self'"},
+  "host_permissions": [
+    "*://*.roblox.com/*",
+    "https://apis.roblox.com/*",
+    "https://games.roblox.com/*",
+    "https://*.rbxcdn.com/*",
+    "https://flagcdn.com/*",
+    "https://api.purpura.page/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [{"id": "offline_mode", "enabled": false, "path": "data/rules/offline-mode.json"}]
+  },
+  "web_accessible_resources": [{
+    "resources": [
+      "assets/images/*", "css/*", "scripts/js/*", "data/*",
+      "scripts/content/core/ppa.js", "scripts/content/core/ssi.js",
+      "scripts/content/feat/serv/sie.js",
+      "scripts/content/feat/cust/aeditor/react/*",
+      "scripts/content/feat/cust/aeditor/three/*"
+    ],
+    "matches": ["*://*.roblox.com/*"]
+  }],
+  "content_scripts": [
+    {"matches": ["*://*.roblox.com/*"], "js": ["scripts/content/content_iso.js"], "run_at": "document_start"},
+    {"matches": ["*://*.roblox.com/*"], "js": ["scripts/content/content_main.js"], "run_at": "document_start", "world": "MAIN"},
+    {"matches": ["*://*.roblox.com/*"], "js": ["scripts/content/content_iso_idle.js"], "run_at": "document_idle"},
+    {"matches": ["*://*.roblox.com/purpura-themes*"], "css": ["css/purpura-page.css"], "run_at": "document_start"},
+    {"matches": ["*://*.roblox.com/purpura-time*"], "css": ["css/purpura-page.css"], "run_at": "document_start"}
+  ],
+  "browser_specific_settings": {
+    "gecko": {"id": "purpura-firefox-port@users.noreply.github.com", "strict_min_version": "128.0"}
+  }
+}
